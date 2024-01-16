@@ -45,7 +45,8 @@ const TabNavigator = (props) => {
                             <Center>
                                 <Icon
                                     as={HomeIcon}
-                                    color={focused ? 'white' : color}
+                                    size='md' fill={focused ? "$orange500": 'transparent'}
+                                    color={focused ? '$orange500' : color}
                                 />
                                 {focused ? null : <Text fontSize='$sm'>Home</Text>}
                             </Center>
@@ -74,8 +75,8 @@ const TabNavigator = (props) => {
                             <Center>
                                 <Icon
                                     as={LayoutGridIcon}
-                                    size='md'
-                                    color={focused ? 'white' : color}
+                                    size='md' fill={focused ? "$orange500": 'transparent'}
+                                    color={focused ? '$orange500' : color}
                                 />
                                 {focused ? null : <Text fontSize='$sm'>Categories</Text>}
                             </Center>
@@ -104,8 +105,8 @@ const TabNavigator = (props) => {
                             <Center>
                                 <Icon
                                     as={HeartIcon}
-                                    size='md'
-                                    color={focused ? 'white' : color}
+                                    size='md' fill={focused ? "$orange500": 'transparent'}
+                                    color={focused ? '$orange500' : color}
                                 />
                                 {focused ? null : <Text fontSize='$sm'>Favorites</Text>}
                             </Center>
@@ -134,10 +135,10 @@ const TabNavigator = (props) => {
                             <Center>
                                 <Icon
                                     as={MoreVerticalIcon}
-                                    size='md'
-                                    color={focused ? 'white' : color}
+                                    size='md' fill={focused ? "$orange500": 'transparent'}
+                                    color={focused ? '$orange500' : color}
                                 />
-                                {focused ? null : <Text fontSize='$sm'>Favorites</Text>}
+                                {focused ? null : <Text fontSize='$sm'>More</Text>}
                             </Center>
                         </View>
                     ),

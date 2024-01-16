@@ -18,7 +18,7 @@ const Home = () => {
 
         <VStack >
             <Text mx="$3" py="$2" fontSize="$2xl" color="black">Recommended</Text>
-            <RecommendList products={products}/>
+            <RecommendList products={products.filter(item => item.rating >= 4.7)}/>
         </VStack>
         <VStack m="$3">
             <Text py="$2" fontSize="$2xl" color="black">Recommended</Text>

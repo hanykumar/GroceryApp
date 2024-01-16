@@ -1,7 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from "../screens/HomeScreen";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabNavigator from "./TabNavigator";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
 import ShoppingCartScreen from "../screens/ShoppingCartScreen";
@@ -19,7 +17,13 @@ const Navigator = () => {
             />
             <Stack.Screen
                 name="ProductDetailScreen"
-                options={{ headerShown: true }}
+                options={{
+                    headerShown: true, headerBackgroundContainerStyle: {
+                        backgroundColor: 'white',
+                    },
+                    headerTitle: '',
+                    // headerLeft: (props) => <CustomBackButton {...props} />,
+                }}
                 component={ProductDetailScreen}
             />
             <Stack.Screen
@@ -27,9 +31,9 @@ const Navigator = () => {
                 options={{ headerShown: true }}
                 component={ShoppingCartScreen}
             />
-            
+
         </Stack.Navigator>
-        
+
     </NavigationContainer>;
 };
 

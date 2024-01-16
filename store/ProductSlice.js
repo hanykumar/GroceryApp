@@ -12,6 +12,7 @@ const slice = createSlice({
   reducers: {
     addToCartAction: (state, action) => {
       const { product, quantity, operation } = action.payload;
+      console.log({ product, quantity, operation })
       switch (operation) {
         case 'add':
           // Check if the product already exists in the cart

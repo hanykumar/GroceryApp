@@ -1,6 +1,6 @@
-import { Button, ButtonIcon, HStack, Icon, Image, Pressable, Text, VStack } from "@gluestack-ui/themed";
+import { Box, Button, ButtonIcon, HStack, Icon, Image, Pressable, Text, VStack } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
-import { ImageIcon, PlusIcon } from "lucide-react-native";
+import { HeartIcon, ImageIcon, PlusIcon } from "lucide-react-native";
 import { useDispatch } from "react-redux";
 import { OnFetchProductDetailsService } from "../service/ProductsService";
 import { addToCartAction } from "../store/ProductSlice";
@@ -28,28 +28,35 @@ const a = {
 
 const Recommend = ({ product }) => {
     const navigation = useNavigation();
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()
     const viewProfuctDetails = (id) => {
         navigation.navigate('ProductDetailScreen', {
             id: id
         })
     }
     const addItemToCart = () => {
-            dispatch(addToCartAction({product, qauanty: 1, operation: 'add'}))
+        dispatch(addToCartAction({ product, quantity: 1, operation: 'add' }))
     }
 
     if (product !== undefined)
-        return <Pressable onPress={() => viewProfuctDetails(product.id)} borderRadius="$3xl" mx="$2" bg='$coolGray100' w="$48">
-            <Image width='$full' objectFit="cover" source={{ uri: product.thumbnail }} alt={product.title} size="xl" rounded="$lg" />
-            <HStack px="$5" mt="$2" justifyContent="space-between">
-                <VStack>
-                    <Text>{product.price}</Text>
-                    <Text>{product.brand}</Text>
-                </VStack>
-                <Button w="$0" rounded='$full' size="sm" onPress={addItemToCart}>
-                    <ButtonIcon size="xs" as={PlusIcon}></ButtonIcon>
-                </Button>
-            </HStack>
-        </Pressable>
+        return <Box position="relative" mx="$3" bg='$coolGray100' w="$48" borderRadius="$xl" overflow="hidden">
+            <Pressable onPress={() => viewProfuctDetails(product.id)} 
+                 >
+                <Image width='$full' objectFit="cover" source={{ uri: product.thumbnail }}
+                    alt={product.title} size="xl" />
+                <HStack px="$3" my="$2" justifyContent="space-between" alignItems="center">
+                    <VStack>
+                        <Text>${product.price}</Text>
+                        <Text color="$coolGray400" size="$sm">{product.brand}</Text>
+                    </VStack>
+                    <Button w="$0" rounded='$full' size="sm" onPress={addItemToCart}>
+                        <ButtonIcon size="xs" as={PlusIcon}></ButtonIcon>
+                    </Button>
+                </HStack>
+            </Pressable>
+            <Button bg="#ffffff33" w="$0"  $active-bg="#00000022" rounded='$lg' position="absolute" >
+                <ButtonIcon color="$red500" as={HeartIcon}></ButtonIcon>
+            </Button>
+        </Box>
 }
 export default Recommend;
