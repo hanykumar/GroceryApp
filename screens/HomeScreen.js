@@ -1,29 +1,39 @@
-import React, { useLayoutEffect } from 'react';
-import { View, SectionList, FlatList } from "@gluestack-ui/themed";
+import React, { useLayoutEffect, useMemo } from 'react';
+import { View, SectionList, FlatList, Center, Text } from "@gluestack-ui/themed";
 import CustomText from "../components/CustomText";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import ProductItem from "../components/ProductItem";
 import Recommend from '../components/Recommend';
 import RecommendList from '../components/RecommentList';
+import { calculateDiscount } from '../service/ProductsService';
+import CardsList from '../components/CardsList';
 
 const Home = React.memo(() => {
     const products = useSelector((state) => state.productsReducer.products);
+    const loading = useSelector((state) => state.productsReducer.loading);
     const navigation = useNavigation();
 
-    useLayoutEffect(() => {
+    useFocusEffect(() => {
         StatusBar.setBackgroundColor("#1d4ed8");
         StatusBar.setBarStyle('light-content');
-    }, [navigation]);
+    });
 
-    const sections = [
+    const sections = useMemo(() => [
         {
             title: "Deal & Offers",
             data: [
-                { type: 'Card', key: 'card'}
+                {
+                    type: 'Card', key: 'card',
+                    data: [...products].sort((a, b) => b.discountPercentage - a.discountPercentage).slice(0, 3)
+                        .map((product) => ({
+                            key: product.id.toString(),
+                            product: product
+                        })),
+                }
             ]
         },
         {
@@ -47,20 +57,18 @@ const Home = React.memo(() => {
                 product: product,
             })),
         },
-    ];
+    ]);
 
 
 
     const renderItem = ({ item }) => {
         switch (item.type) {
             case 'Card':
-                return <Card key={item.key} />;
-            case 'CustomText':
-                return <CustomText key={item.key} mx="$3" py="$2" fontSize="$2xl" color="black">{item.text}</CustomText>;
-            case 'ProductItem':
-                return <ProductItem key={item.key} product={item.product} />;
+                return <CardsList key={item.key}  products={item.data}/>;
             case 'RecommendItem':
                 return <RecommendList key={item.key} products={item.data} />;
+            case 'ProductItem':
+                return <ProductItem key={item.key} product={item.product} />;
             default:
                 return null;
         }
@@ -75,11 +83,15 @@ const Home = React.memo(() => {
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <Header />
             <View mx="$3">
+                {
+                    loading && <Center p="$4"><Text>Loading...</Text></Center>
+                }
                 <SectionList
                     sections={sections}
                     keyExtractor={(item) => item.key}
                     renderItem={renderItem}
                     renderSectionHeader={renderSectionHeader}
+                    ListFooterComponent={() =><View h="$96"></View>}
                 />
             </View>
         </View>

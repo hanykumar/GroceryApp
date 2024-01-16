@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   products: [],
+  loading: false,
   currentProduct: {},
   cart: [],
   favorites: [],
@@ -59,11 +60,14 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase('ProductSlice/fetchProducts/pending', (state) => {
+      state.loading  = true;
     })
       .addCase('ProductSlice/fetchProducts/fulfilled', (state, action) => {
+        state.loading  = false;
         state.products = action.payload
       })
       .addCase('ProductSlice/fetchProducts/rejected', (state, action) => {
+        state.loading  = false;
       })
 
       .addCase('ProductSlice/fetchProductDetails/pending', (state) => {

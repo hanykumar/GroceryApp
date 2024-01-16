@@ -48,7 +48,7 @@ const ProductItem = ({ product }) => {
                     alt={product.title} size="xl" />
                 <HStack px="$3" my="$2" justifyContent="space-between" alignItems="center">
                     <VStack>
-                    <CustomText fontWeight='bold'>${product.title}</CustomText>
+                    <CustomText fontSize="$lg" fontWeight='bold'>{product.title}</CustomText>
                         <CustomText fontWeight='bold'>${product.price}</CustomText>
                         <CustomText color="$coolGray400" size="$sm">{product.brand}</CustomText>
                     </VStack>

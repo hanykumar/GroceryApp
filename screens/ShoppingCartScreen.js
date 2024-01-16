@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, ButtonIcon, ButtonText, Center, FlatList, HStack, ScrollView } from "@gluestack-ui/themed";
+import { Button, ButtonGroup, ButtonIcon, ButtonText, Center, Divider, FlatList, HStack, ScrollView } from "@gluestack-ui/themed";
 import { View, Box, Image } from "@gluestack-ui/themed";
 import { useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,19 @@ import CustomButtonText from "../components/CustomButtonText";
 
 const ShoppingCartScreen = () => {
     const cart = useSelector((state) => state.productsReducer.cart);
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const deliveryCharges = 2;
+
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+
+        cart.forEach((item) => {
+            const itemTotal = item.price * item.quantity;
+            totalPrice += itemTotal;
+        });
+
+        return totalPrice;
+    }
 
     useLayoutEffect(() => {
         StatusBar.setBackgroundColor("white");
@@ -28,7 +40,7 @@ const ShoppingCartScreen = () => {
         })
     }, [cart])
 
-    if(cart.length == 0){
+    if (cart.length == 0) {
         return <Center flex={1} bg='white' >
             <CustomText>Add products to Cart!</CustomText>
         </Center>
@@ -36,22 +48,28 @@ const ShoppingCartScreen = () => {
 
     return <View flex={1} bg='white' >
         <VStack flex={1} m="$3" justifyContent="space-between">
-            <FlatList data={cart}
-                renderItem={({ item, index }) => <CartItem key={index} cartItem={item} />}
-            />
+            <Box>
+                <FlatList data={cart}
+                    renderItem={({ item, index }) => <CartItem key={index} cartItem={item} />}
+                />
+                <HStack justifyContent="flex-end">
+                    <Button  px="$2" variant="link" ><CustomButtonText color="$blue700" >Edit</CustomButtonText></Button>
+                </HStack>
+            </Box>
 
-            <Box justifyContent="flex-end" bg="$coolGray200" px="$7" py="$3"  rounded="$xl">
+            <Box justifyContent="flex-end" bg="$coolGray100" px="$7" py="$3" rounded="$xl">
                 <HStack justifyContent="space-between">
-                    <CustomText>Subtotal: </CustomText>
-                    <CustomText>$1 </CustomText>
+                    <CustomText color="$coolGray500">Subtotal:</CustomText>
+                    <CustomText>${calculateTotalPrice()}</CustomText>
                 </HStack>
                 <HStack justifyContent="space-between">
-                    <CustomText>Subtotal: </CustomText>
-                    <CustomText>$33: </CustomText>
+                    <CustomText color="$coolGray500">Delivery: </CustomText>
+                    <CustomText>${deliveryCharges} </CustomText>
                 </HStack>
+                <Divider my="$3" />
                 <HStack justifyContent="space-between">
-                    <CustomText>Subtotal: </CustomText>
-                    <CustomText>$32 </CustomText>
+                    <CustomText color="$coolGray500">Total: </CustomText>
+                    <CustomText fontWeight="medium" >${calculateTotalPrice() + deliveryCharges} </CustomText>
                 </HStack>
                 <Button bg="$blue700" rounded='$3xl' size="xl" height='$16' my="$4" mt="$5">
                     <CustomButtonText>
