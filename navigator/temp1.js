@@ -28,30 +28,24 @@ const Home = () => {
     },
     {
       title: "Recommended Products",
-      data: [
-        {
-          type: 'Recommend', // Use the new ProductItem component
-          key: 'recommendedFlatList',
-          horizontal: true,
-          data: products.filter((item) => item.rating >= 4.7).map((product) => ({
-            type: 'RecommendItem', // Use a specific type for Recommend items
-            key: product.id.toString(),
-            product: product,
-          })),
-        }
-      ]
+      data: products
+        .filter((item) => item.rating >= 4.7)
+        .map((product) => ({
+          type: 'RecommendItem', // Use a specific type for Recommend items
+          key: product.id.toString(),
+          product: product,
+        })),
     },
     {
       title: "Other Recommendations",
       data: products.map((product) => ({
         type: 'ProductItem',
         key: product.id.toString(),
-        product: product
-      }))
+        product: product,
+      })),
     },
   ];
   
-
   const renderItem = ({ item }) => {
     switch (item.type) {
       case 'Card':
@@ -60,13 +54,13 @@ const Home = () => {
         return <CustomText key={item.key} mx="$3" py="$2" fontSize="$2xl" color="black">{item.text}</CustomText>;
       case 'ProductItem':
         return <ProductItem key={item.key} product={item.product} />;
-      case 'Recommend':
       case 'RecommendItem':
         return <Recommend key={item.key} product={item.product} />;
       default:
         return null;
     }
   };
+  
   
 
   const renderSectionHeader = ({ section }) => (

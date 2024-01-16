@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, HStack, Text, Icon } from '@gluestack-ui/themed';
 import { StarIcon, StarHalfIcon } from 'lucide-react-native'; // Assuming these icons are correctly implemented
+import CustomText from './CustomText';
 
 const StarRating = ({ rating, totalStars = 5, size = 20, color = 'gold' }) => {
   const filledStars = Math.floor(rating);
@@ -25,7 +26,7 @@ const StarRating = ({ rating, totalStars = 5, size = 20, color = 'gold' }) => {
   return (
     <HStack alignItems="flex-start" alignSelf="flex-start">
       {renderStars()}
-      <Text color="$coolGray500">110 Reviews</Text>
+      <CustomText fontWeight="medium" color="$coolGray500">110 Reviews</CustomText >
     </HStack>
   );
 };

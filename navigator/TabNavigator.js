@@ -1,10 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/HomeScreen";
-import { View, Icon, MenuIcon, Text, Center, Box, Button } from "@gluestack-ui/themed";
+import { View, Icon, MenuIcon,  Center, Box, Button } from "@gluestack-ui/themed";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { HeartIcon, HomeIcon, LayoutGridIcon, MoreVerticalIcon } from 'lucide-react-native';
+import CustomText from '../components/CustomText';
+import FavoritesScreen from '../screens/FavoritesScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +50,7 @@ const TabNavigator = (props) => {
                                     size='md' fill={focused ? "$orange500": 'transparent'}
                                     color={focused ? '$orange500' : color}
                                 />
-                                {focused ? null : <Text fontSize='$sm'>Home</Text>}
+                                {focused ? null : <CustomText fontSize='$sm'>Home</CustomText>}
                             </Center>
                         </View>
                     ),
@@ -78,7 +80,7 @@ const TabNavigator = (props) => {
                                     size='md' fill={focused ? "$orange500": 'transparent'}
                                     color={focused ? '$orange500' : color}
                                 />
-                                {focused ? null : <Text fontSize='$sm'>Categories</Text>}
+                                {focused ? null : <CustomText fontSize='$sm'>Categories</CustomText>}
                             </Center>
                         </View>
                     ),
@@ -86,8 +88,10 @@ const TabNavigator = (props) => {
             />
             <Tab.Screen
                 name="Favorites"
-                component={Home}
+                component={FavoritesScreen}
                 options={{
+                    headerShown: true,
+                    headerTitleStyle: { fontFamily: "Manrope-Medium" },
                     tabBarIcon: ({ color, size, focused }) => (
                         <View px={focused ? '$7' : '$0'} py={focused ? '$7' : '$2'}
                             style={{
@@ -108,7 +112,7 @@ const TabNavigator = (props) => {
                                     size='md' fill={focused ? "$orange500": 'transparent'}
                                     color={focused ? '$orange500' : color}
                                 />
-                                {focused ? null : <Text fontSize='$sm'>Favorites</Text>}
+                                {focused ? null : <CustomText fontSize='$sm'>Favorites</CustomText>}
                             </Center>
                         </View>
                     ),
@@ -138,7 +142,7 @@ const TabNavigator = (props) => {
                                     size='md' fill={focused ? "$orange500": 'transparent'}
                                     color={focused ? '$orange500' : color}
                                 />
-                                {focused ? null : <Text fontSize='$sm'>More</Text>}
+                                {focused ? null : <CustomText fontSize='$sm'>More</CustomText>}
                             </Center>
                         </View>
                     ),

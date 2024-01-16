@@ -3,46 +3,48 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
   products: [],
   currentProduct: {},
-  cart: []
+  cart: [],
+  favorites: [],
 }
 
 const slice = createSlice({
   name: 'ProductSlice',
   initialState,
   reducers: {
+    addToFavorite: (state, action) => {
+      const { id } = action.payload;
+      const existingIndex = state.favorites.findIndex(item => item.id === id);
+      if (existingIndex !== -1) {
+        state.favorites.splice(existingIndex, 1);
+      } else {
+        state.favorites.push(action.payload);
+      }
+    },
     addToCartAction: (state, action) => {
       const { product, quantity, operation } = action.payload;
-      console.log({ product, quantity, operation })
       switch (operation) {
         case 'add':
-          // Check if the product already exists in the cart
           const existingProductIndex = state.cart.findIndex(item => item.id === product.id);
     
           if (existingProductIndex !== -1) {
-            // Product is already in the cart, update the quantity
             const updatedCart = [...state.cart];
             updatedCart[existingProductIndex].quantity += quantity;
             state.cart = updatedCart;
           } else {
-            // Product is not in the cart, add it with the specified quantity
             const newCartItem = { ...product, quantity };
             state.cart = [...state.cart, newCartItem];
           }
           break;
     
         case 'remove':
-          // Find the index of the product in the cart
           const productIndexToRemove = state.cart.findIndex(item => item.id === product.id);
     
           if (productIndexToRemove !== -1) {
-            // Product is in the cart, update the quantity or remove it
             const updatedCart = [...state.cart];
     
             if (quantity > 0 && quantity < updatedCart[productIndexToRemove].quantity) {
-              // Decrease the quantity
               updatedCart[productIndexToRemove].quantity -= quantity;
             } else {
-              // Remove the product from the cart if the quantity is zero or the specified quantity
               updatedCart.splice(productIndexToRemove, 1);
             }
     
@@ -74,5 +76,5 @@ const slice = createSlice({
   }
 })
 
-export const { fetchProductAction, addToCartAction } = slice.actions;
+export const { fetchProductAction, addToCartAction, addToFavorite } = slice.actions;
 export default slice.reducer;

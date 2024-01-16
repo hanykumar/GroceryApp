@@ -8,27 +8,27 @@ import CustomText from "./CustomText";
 import AddToFavoriteButton from "./AddToFavoriteButton";
 
 
-const a = {
-    "brand": "Fair & Clear",
-    "category": "skincare",
-    "description": "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
-    "discountPercentage": 16.99,
-    "id": 20,
-    "images": [
-        "https://cdn.dummyjson.com/product-images/20/1.jpg",
-        "https://cdn.dummyjson.com/product-images/20/2.jpg",
-        "https://cdn.dummyjson.com/product-images/20/3.jpg",
-        "https://cdn.dummyjson.com/product-images/20/4.jpg",
-        "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg"
-    ],
-    "price": 70,
-    "rating": 4.06,
-    "stock": 140,
-    "thumbnail": "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg",
-    "title": "Freckle Treatment Cream- 15gm"
-}
+// const a = {
+//     "brand": "Fair & Clear",
+//     "category": "skincare",
+//     "description": "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
+//     "discountPercentage": 16.99,
+//     "id": 20,
+//     "images": [
+//         "https://cdn.dummyjson.com/product-images/20/1.jpg",
+//         "https://cdn.dummyjson.com/product-images/20/2.jpg",
+//         "https://cdn.dummyjson.com/product-images/20/3.jpg",
+//         "https://cdn.dummyjson.com/product-images/20/4.jpg",
+//         "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg"
+//     ],
+//     "price": 70,
+//     "rating": 4.06,
+//     "stock": 140,
+//     "thumbnail": "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg",
+//     "title": "Freckle Treatment Cream- 15gm"
+// }
 
-const Recommend = ({ product }) => {
+const ProductItem = ({ product }) => {
     const navigation = useNavigation();
     const dispatch = useDispatch()
     const viewProfuctDetails = (id) => {
@@ -41,13 +41,14 @@ const Recommend = ({ product }) => {
     }
 
     if (product !== undefined)
-        return <Box position="relative" mx="$3" bg='$coolGray100' w="$48" borderRadius="$xl" overflow="hidden">
+        return <Box position="relative" mx="$3" mb="$3" bg='$coolGray100'  borderRadius="$xl" overflow="hidden">
             <Pressable onPress={() => viewProfuctDetails(product.id)}
             >
-                <Image width='$full' objectFit="cover" source={{ uri: product.thumbnail }}
+                <Image width='$full' height='$48' objectFit="contain" source={{ uri: product.thumbnail }}
                     alt={product.title} size="xl" />
                 <HStack px="$3" my="$2" justifyContent="space-between" alignItems="center">
                     <VStack>
+                    <CustomText fontWeight='bold'>${product.title}</CustomText>
                         <CustomText fontWeight='bold'>${product.price}</CustomText>
                         <CustomText color="$coolGray400" size="$sm">{product.brand}</CustomText>
                     </VStack>
@@ -61,4 +62,4 @@ const Recommend = ({ product }) => {
             </Box>
         </Box>
 }
-export default Recommend;
+export default ProductItem;

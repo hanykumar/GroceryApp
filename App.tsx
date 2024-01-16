@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { StatusBar, View } from 'react-native';
-import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
+import { GluestackUIProvider } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config"
 
 import Navigator from './navigator/navigator';

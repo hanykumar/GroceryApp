@@ -28,7 +28,7 @@ const Navigator = () => {
             />
             <Stack.Screen
                 name="ShoppingCartScreen"
-                options={{ headerShown: true }}
+                options={{ headerShown: true, headerTitleStyle: { fontFamily: "Manrope-Medium" } }}
                 component={ShoppingCartScreen}
             />
 

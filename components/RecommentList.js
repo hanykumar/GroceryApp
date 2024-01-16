@@ -12,9 +12,11 @@ const RecommendList = ({ products }) => {
     }, []);
 
     return <FlatList
-        data={products.filter(item => item !== undefined)}
+        data={products}
+        showsHorizontalScrollIndicator={false}
         horizontal
-        renderItem={({ item, index }) => <Recommend key={index} product={item} />}
+        keyExtractor={(item) => item.key}
+        renderItem={({ item }) => <Recommend product={item.product} />}
     />
 }
 export default RecommendList;
